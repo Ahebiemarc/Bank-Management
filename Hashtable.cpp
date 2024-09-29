@@ -70,6 +70,14 @@ bool Hashtable::match(int a, int p)
     return flag;
 }
 
+void Hashtable::display(){
+    Node* current = start;
+    while(current != nullptr){
+        cout << "data: " << current->data << endl;
+        current = current->next;
+    }
+}
+
 void Hashtable::loadhashtable()
 {
     int acc=0, r, pass;
@@ -100,7 +108,7 @@ void Hashtable::loadhashtable()
                 while(root->next != nullptr){
                     root = root->next; // Parcourir jusqu'à la fin de la liste
                 }
-                root->next = temp // Ajouter le nouveau nœud à la fin de la liste
+                root->next = temp; // Ajouter le nouveau nœud à la fin de la liste
             }
         }
         else{
@@ -112,23 +120,20 @@ void Hashtable::loadhashtable()
     __read.close();
 }
 
-void Hashtable::display(){
-    Node* current = start;
-    while(current != nullptr){
-        cout << "data: " << current->data << endl;
-        current = current->next;
-    }
-}
+
 
 void Hashtable::displayPasswords(){
-    starthash(); // Initialise la table de hachage
+    //starthash(); // Initialise la table de hachage
+    if (start == nullptr) {
+        starthash();  // Initialise la table de hachage uniquement si nécessaire
+    }
     Node* c = start;
 
     // Parcours des nœuds de la table de hachage
     while(c != nullptr){
 
         // Parcours des nœuds liés à chaque Node (i.e., Node_1)
-        Node* c1 = c->pre; // Ici, c->pre est la tête de la liste chaînée des Node_1
+        Node_1* c1 = c->pre; // Ici, c->pre est la tête de la liste chaînée des Node_1
         while(c1 != nullptr){
             cout << "Account Number: " << c1->account_number << endl;
             cout << "Password: " << c1->password << endl;
@@ -138,3 +143,73 @@ void Hashtable::displayPasswords(){
         c = c->next; // Passe au Node suivant dans la table de hachage
     }
 }
+
+void Hashtable::deletePassword(int account_number){
+    ifstream __read;
+    __read.open("hashtable.txt");
+    vector<int> v;
+    int acc=0, pass=0;
+    int i=0;
+
+    // Lecture du fichier et stockage des comptes/mots de passe sauf celui à supprimer
+
+    while (!__read.eof())
+    {
+        i++;
+        __read >> acc;
+        __read >> pass;
+
+        if(acc == account_number){
+            continue; // Skip the account we want to delete
+        }
+        v.push_back(acc);
+        v.push_back(pass);
+    }
+    __read.close();
+
+    // Écriture dans un fichier temporaire
+    ofstream __write;
+    __write.open("temp.txt", ios::app);
+
+    for (int i = 0; i < v.size(); i++)
+    {
+        if(v[i] != 0){
+            __write << v[i] << endl;
+        }
+    }
+
+    // Remplacement du fichier d'origine
+    __write.close();
+    remove("hashtable.txt");
+    rename("temp.txt", "hashtable.txt");
+}
+
+/*  
+
+void Hashtable::delete_password(int accountno) {
+    ifstream read("hashtable.txt");
+    vector<pair<int, int>> v;
+    int acc = 0, pass = 0;
+
+    // Lecture du fichier et stockage des comptes/mots de passe sauf celui à supprimer
+    while (read >> acc >> pass) {
+        if (acc == accountno) {
+            continue;  // Skip the account we want to delete
+        }
+        v.push_back(make_pair(acc, pass));
+    }
+    read.close();
+
+    // Écriture dans un fichier temporaire
+    ofstream write("temp.txt");
+    for (const auto& p : v) {
+        write << p.first << endl << p.second << endl;
+    }
+    write.close();
+
+    // Remplacement du fichier d'origine
+    remove("hashtable.txt");
+    rename("temp.txt", "hashtable.txt");
+}
+
+*/

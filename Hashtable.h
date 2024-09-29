@@ -14,6 +14,6 @@ public:
     bool match(int, int);
     void display();
     void displayPasswords();
-    void deletePassword();
+    void deletePassword(int);
 };
 
