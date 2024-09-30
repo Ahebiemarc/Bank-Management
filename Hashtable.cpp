@@ -171,7 +171,7 @@ void Hashtable::deletePassword(int account_number){
     ofstream __write;
     __write.open("temp.txt", ios::app);
 
-    for (int i = 0; i < v.size(); i++)
+    for (size_t i = 0; i < v.size(); i++)
     {
         if(v[i] != 0){
             __write << v[i] << endl;

@@ -1,7 +1,9 @@
 #include "BST_Tree.h"
 #include "Hashtable.h"
 
-BST_Tree::BST_Tree(){}
+BST_Tree::BST_Tree(){
+
+}
 
 void BST_Tree::addAccount(string name, string address, int account_num, int password,int balance)
 {
@@ -109,7 +111,7 @@ void BST_Tree::withdraw(int account_num, int amount) {
     // Écrire les données mises à jour dans un fichier temporaire
     ofstream __write;
     __write.open("temp.txt", ios::app);
-    for (int i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++) {
         __write << data[i] << endl; // Écrire chaque donnée
     }
     __write.close();
@@ -149,7 +151,7 @@ void BST_Tree::deposit(int account_num, int amount) {
     // Écrire les données mises à jour dans un fichier temporaire
     ofstream __write;
     __write.open("temp.txt", ios::app);
-    for (int i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++) {
         __write << data[i] << endl; // Écrire chaque donnée
     }
     __write.close();
@@ -196,7 +198,7 @@ void BST_Tree::transfer(int sender_account_num, int reciever_account_num, int se
     // Écrire les données mises à jour dans un fichier temporaire
     ofstream __write;
     __write.open("temp.txt", ios::app);
-    for (int i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++) {
         __write << data[i] << endl; // Écrire chaque donnée
     }
     __write.close();
@@ -224,7 +226,7 @@ void BST_Tree::transfer(int sender_account_num, int reciever_account_num, int se
     // Écrire les données mises à jour dans un fichier temporaire
     ofstream write;
     write.open("temp.txt", ios::app);
-    for (int i = 0; i < data.size(); i++) {
+    for (size_t i = 0; i < data.size(); i++) {
         write << data[i] << endl; // Écrire chaque donnée
     }
     write.close();
